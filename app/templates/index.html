@@ -1,40 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta property="og:title" content="Personal Portfolio">
-    <meta property="og:description" content="My Personal Portfolio">
-    <meta property="og:url" content="{{ url }}">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
-
-    <link lang='sass' rel="stylesheet" href="./static/styles/main.css">
-    <link rel='icon' href='./static/img/favicon.ico' type='image/x-icon' />
-    <title>{{ title }}</title>
-</head>
-
-<body>
-    <header class="nav-bar">
-        <div class="nav-content">
-            <a href="/">
-                <div class="nav-logo">
-                    <img src="./static/img/logo.svg" />
-                </div>
-            </a>
-        </div>
-    </header>
-
-    <div class="profile">
-        <div id="profile-picture" class="profile-picture">
-            <img src="./static/img/logo.jpg">
-        </div>
-        <h1>{{ title }}</h1>
+{% block content %}
+<!-- Hero / Profile -->
+<div class="profile">
+    <div class="profile-picture">
+        <img src="/static/img/profile.jpg" alt="Profile photo" onerror="this.src='/static/img/logo.jpg'">
     </div>
-</body>
-</html>
+    <h1>Maya Laidler</h1>
+    <p class="profile-tagline">Software Engineer &amp; MLH Fellow</p>
+</div>
+
+<!-- About -->
+<section class="section" id="about">
+    <div class="section-inner">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>
+                    Hi! I'm Maya, a software engineer and MLH Fellow passionate about building products that matter.
+                    I love working across the full stack — from crafting clean UIs to designing reliable back-end systems.
+                </p>
+                <p>
+                    When I'm not coding you'll find me hiking trails, experimenting in the kitchen, or hunting for the
+                    perfect shot with my camera.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Work Experience -->
+<section class="section section-alt" id="experience">
+    <div class="section-inner">
+        <h2 class="section-title">Work Experience</h2>
+        {% for exp in experiences %}
+        <div class="card experience-card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">{{ exp.role }}</h3>
+                    <span class="card-subtitle">{{ exp.company }}</span>
+                </div>
+                <span class="card-date">{{ exp.start }} &ndash; {{ exp.end }}</span>
+            </div>
+            <p class="card-body">{{ exp.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Education -->
+<section class="section" id="education">
+    <div class="section-inner">
+        <h2 class="section-title">Education</h2>
+        {% for edu in education %}
+        <div class="card education-card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">{{ edu.school }}</h3>
+                    <span class="card-subtitle">{{ edu.degree }}</span>
+                </div>
+                <span class="card-date">{{ edu.start }} &ndash; {{ edu.end }}</span>
+            </div>
+            <p class="card-body">{{ edu.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Travel Map -->
+<section class="section section-alt" id="travel">
+    <div class="section-inner">
+        <h2 class="section-title">Places I've Visited</h2>
+        <div id="travel-map"></div>
+        <ul class="location-list">
+            {% for loc in visited_locations %}
+            <li>{{ loc.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const map = L.map('travel-map').setView([20, 0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const locations = {{ visited_locations | tojson }};
+    locations.forEach(loc => {
+        L.marker([loc.lat, loc.lng])
+            .addTo(map)
+            .bindPopup(`<strong>${loc.name}</strong>`);
+    });
+</script>
+{% endblock %}
