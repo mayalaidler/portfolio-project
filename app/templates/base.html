@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:title" content="Personal Portfolio">
+    <meta property="og:description" content="My Personal Portfolio">
+    <meta property="og:url" content="{{ url }}">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <link lang="sass" rel="stylesheet" href="/static/styles/main.css">
+    <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon" />
+    <title>{{ title }}</title>
+</head>
+
+<body>
+    <header class="nav-bar">
+        <div class="nav-content">
+            <a href="/">
+                <div class="nav-logo">
+                    <img src="/static/img/logo.svg" />
+                </div>
+            </a>
+            <nav>
+                {% for page in pages %}
+                <a href="{{ page.url }}" class="nav-link {% if request.path == page.url %}active{% endif %}">
+                    {{ page.name }}
+                </a>
+                {% endfor %}
+            </nav>
+        </div>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Maya Laidler &mdash; Built with Flask &amp; MLH</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
