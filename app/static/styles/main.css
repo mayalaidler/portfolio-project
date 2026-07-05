@@ -7,11 +7,11 @@ p, h1, h2, h3, h4, h5, h6, button {
 }
 
 body {
-    background-color: #f5f5f9;
+    background-color: #f7f8fa;
     font-family: "Roboto", sans-serif;
     margin: 0;
     overflow-x: hidden;
-    color: #222;
+    color: #1a1d23;
 }
 
 a { text-decoration: none; color: inherit; }
@@ -19,12 +19,13 @@ a { text-decoration: none; color: inherit; }
 /* ── Nav bar ──────────────────────────────────────────────── */
 .nav-bar {
     width: 100%;
-    background-color: #1C539F;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e8eaed;
     padding: 0 32px;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 8px rgba(0,0,0,.2);
 }
 
 .nav-content {
@@ -33,46 +34,46 @@ a { text-decoration: none; color: inherit; }
     justify-content: space-between;
     max-width: 1100px;
     margin: 0 auto;
-    height: 70px;
+    height: 64px;
 }
 
-.nav-logo img { width: 160px; display: block; }
+.nav-logo img { width: 140px; display: block; }
 
-.nav-content nav {
-    display: flex;
-    gap: 8px;
-}
+.nav-content nav { display: flex; gap: 4px; }
 
 .nav-link {
-    color: rgba(255,255,255,.85);
+    color: #5c6370;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 14px;
     padding: 6px 16px;
-    border-radius: 6px;
-    transition: background .2s, color .2s;
+    border-radius: 8px;
+    transition: color .15s, background .15s;
 }
 
-.nav-link:hover,
+.nav-link:hover { color: #1a1d23; background: #f0f1f3; }
+
 .nav-link.active {
-    background: rgba(255,255,255,.18);
-    color: #fff;
+    color: #1a1d23;
+    background: #ebebed;
+    font-weight: 600;
 }
 
 /* ── Profile hero ─────────────────────────────────────────── */
 .profile {
-    background: linear-gradient(135deg, #1C539F 0%, #3a7bd5 100%);
+    background: #fff;
+    border-bottom: 1px solid #e8eaed;
     text-align: center;
-    padding: 48px 20px 56px;
+    padding: 64px 20px 72px;
 }
 
 .profile-picture {
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
     margin: 0 auto 20px;
     border-radius: 50%;
     overflow: hidden;
-    border: 4px solid rgba(255,255,255,.4);
-    box-shadow: 0 4px 20px rgba(0,0,0,.25);
+    border: 3px solid #e8eaed;
+    box-shadow: 0 4px 16px rgba(0,0,0,.08);
 }
 
 .profile-picture img {
@@ -82,46 +83,85 @@ a { text-decoration: none; color: inherit; }
 }
 
 .profile h1 {
-    font-size: 42px;
+    font-size: 40px;
     font-weight: 700;
-    color: #fff;
+    color: #0f1117;
     margin-bottom: 8px;
+    letter-spacing: -0.5px;
 }
 
 .profile-tagline {
-    font-size: 18px;
-    color: rgba(255,255,255,.8);
-    font-weight: 300;
+    font-size: 16px;
+    color: #6b7280;
+    font-weight: 400;
+    margin-bottom: 4px;
+}
+
+/* ── Typing animation & cursor ───────────────────────────── */
+.cursor {
+    display: inline-block;
+    animation: blink .7s step-end infinite;
+    color: #6366f1;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ── Profile links/badges ─────────────────────────────────── */
+.profile-links {
+    margin-top: 20px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.profile-badge {
+    color: #374151;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 7px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background .15s, border-color .15s, color .15s;
+}
+
+.profile-badge:hover {
+    background: #ebebff;
+    border-color: #c7c9ff;
+    color: #4338ca;
+}
+
+/* ── Star-field canvas ────────────────────────────────────── */
+#starfield {
+    display: block;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(to bottom, #fff 0%, #f7f8fa 100%);
 }
 
 /* ── Page hero (non-index pages) ──────────────────────────── */
 .page-hero {
-    background: linear-gradient(135deg, #1C539F 0%, #3a7bd5 100%);
+    background: #fff;
+    border-bottom: 1px solid #e8eaed;
     text-align: center;
-    padding: 48px 20px;
-    color: #fff;
+    padding: 56px 20px;
 }
 
 .page-hero h1 {
-    font-size: 38px;
+    font-size: 34px;
     font-weight: 700;
+    color: #0f1117;
     margin-bottom: 8px;
-    color: #fff;
 }
 
 .page-hero p {
-    font-size: 16px;
-    color: rgba(255,255,255,.8);
+    font-size: 15px;
+    color: #6b7280;
 }
 
 /* ── Sections ─────────────────────────────────────────────── */
-.section {
-    padding: 60px 20px;
-}
-
-.section-alt {
-    background-color: #eef1f8;
-}
+.section { padding: 64px 20px; }
+.section-alt { background-color: #fff; }
 
 .section-inner {
     max-width: 860px;
@@ -129,35 +169,71 @@ a { text-decoration: none; color: inherit; }
 }
 
 .section-title {
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 700;
-    color: #1C539F;
-    margin-bottom: 32px;
+    color: #0f1117;
+    margin-bottom: 28px;
     padding-bottom: 12px;
-    border-bottom: 3px solid #1C539F;
+    border-bottom: 2px solid #e8eaed;
+    letter-spacing: -0.2px;
 }
 
 /* ── About ────────────────────────────────────────────────── */
 .about-text p {
-    font-size: 16px;
-    line-height: 1.8;
-    color: #444;
+    font-size: 15px;
+    line-height: 1.85;
+    color: #374151;
     margin-bottom: 12px;
 }
 
-/* ── Cards (experience & education) ──────────────────────── */
+/* ── Skills ───────────────────────────────────────────────── */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.skill-group {
+    background: #fff;
+    border: 1px solid #e8eaed;
+    border-radius: 12px;
+    padding: 18px 20px;
+}
+
+.skill-category {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #6366f1;
+    margin-bottom: 12px;
+}
+
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.skill-tag {
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #e5e7eb;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 12px;
+}
+
+/* ── Cards ────────────────────────────────────────────────── */
 .card {
     background: #fff;
+    border: 1px solid #e8eaed;
     border-radius: 12px;
-    padding: 24px 28px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,.07);
-    transition: transform .2s, box-shadow .2s;
+    padding: 22px 26px;
+    margin-bottom: 14px;
+    transition: border-color .15s, box-shadow .15s;
 }
 
 .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,.1);
+    border-color: #c7c9ff;
+    box-shadow: 0 4px 16px rgba(99,102,241,.06);
 }
 
 .card-header {
@@ -166,61 +242,61 @@ a { text-decoration: none; color: inherit; }
     align-items: flex-start;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .card-title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
-    color: #1C539F;
-    margin-bottom: 4px;
+    color: #0f1117;
+    margin-bottom: 3px;
 }
 
 .card-subtitle {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
-    color: #555;
+    color: #6366f1;
 }
 
 .card-date {
-    font-size: 13px;
-    color: #888;
+    font-size: 12px;
+    color: #9ca3af;
     white-space: nowrap;
     margin-top: 2px;
 }
 
 .card-body {
-    font-size: 15px;
-    color: #555;
-    line-height: 1.7;
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.75;
 }
 
 /* ── Travel map ───────────────────────────────────────────── */
 #travel-map {
     width: 100%;
-    height: 380px;
+    height: 360px;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,.1);
-    margin-bottom: 20px;
+    border: 1px solid #e8eaed;
+    margin-bottom: 16px;
 }
 
 .location-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
 .location-list li {
-    background: #fff;
-    border: 1px solid #d0d8ec;
-    color: #1C539F;
-    font-size: 14px;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    color: #374151;
+    font-size: 13px;
     font-weight: 500;
-    padding: 6px 14px;
+    padding: 5px 13px;
     border-radius: 20px;
 }
 
@@ -228,62 +304,60 @@ a { text-decoration: none; color: inherit; }
 .hobbies-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 24px;
+    gap: 20px;
 }
 
 .hobby-card {
     background: #fff;
-    border-radius: 12px;
+    border: 1px solid #e8eaed;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,.07);
-    transition: transform .2s, box-shadow .2s;
+    transition: border-color .15s, box-shadow .15s, transform .15s;
 }
 
 .hobby-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,.12);
+    border-color: #c7c9ff;
+    box-shadow: 0 8px 24px rgba(99,102,241,.08);
+    transform: translateY(-2px);
 }
 
 .hobby-img-wrap {
     width: 100%;
-    height: 200px;
+    height: 210px;
     overflow: hidden;
-    background: #d0d8ec;
+    background: #f3f4f6;
 }
 
 .hobby-img-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform .3s;
+    transition: transform .35s;
 }
 
-.hobby-card:hover .hobby-img-wrap img {
-    transform: scale(1.05);
-}
+.hobby-card:hover .hobby-img-wrap img { transform: scale(1.04); }
 
-.hobby-info {
-    padding: 20px;
-}
+.hobby-info { padding: 18px 20px; }
 
 .hobby-info h3 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
-    color: #1C539F;
-    margin-bottom: 8px;
+    color: #0f1117;
+    margin-bottom: 6px;
 }
 
 .hobby-info p {
     font-size: 14px;
-    color: #555;
-    line-height: 1.6;
+    color: #6b7280;
+    line-height: 1.65;
 }
 
 /* ── Footer ───────────────────────────────────────────────── */
 .site-footer {
-    background: #1C539F;
-    color: rgba(255,255,255,.7);
+    background: #fff;
+    color: #9ca3af;
     text-align: center;
-    padding: 20px;
+    padding: 24px;
     font-size: 13px;
+    border-top: 1px solid #e8eaed;
 }

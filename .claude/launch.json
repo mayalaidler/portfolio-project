@@ -1,0 +1,15 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "flask-portfolio",
+      "runtimeExecutable": "/Users/mayalaidler/python3-virtualenv/bin/python3",
+      "runtimeArgs": ["run.py"],
+      "env": {
+        "FLASK_ENV": "development"
+      },
+      "port": 5001,
+      "autoPort": true
+    }
+  ]
+}
