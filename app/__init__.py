@@ -78,17 +78,17 @@ hobbies = [
     {
         "name": "Soccer",
         "description": "Playing and watching the beautiful game — always down for a kickaround.",
-        "image": "AASImage1.jpg",
+        "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=700&q=80",
     },
     {
         "name": "Traveling",
         "description": "Exploring new countries and cultures — from studying abroad in Edinburgh and Tokyo to research trips across the US.",
-        "image": "AASImage2.jpg",
+        "image": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=700&q=80",
     },
     {
         "name": "Baking",
         "description": "Experimenting in the kitchen with breads, pastries, and recipes inspired by everywhere I've been.",
-        "image": "AASImage3.jpg",
+        "image": "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=700&q=80",
     },
 ]
 
@@ -125,6 +125,7 @@ def index():
         education=education,
         visited_locations=visited_locations,
         skills=skills,
+        hobbies=hobbies,
         pages=pages,
     )
 

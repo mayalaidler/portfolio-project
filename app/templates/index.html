@@ -1,43 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Hero / Profile -->
+<!-- Hero -->
 <div class="profile">
-    <div class="profile-picture">
-        <img src="/static/img/AASImage1.jpg" alt="Maya Laidler">
+    <div class="hero-inner">
+        <div class="profile-picture">
+            <img src="/static/img/AASImage1.jpg" alt="Maya Laidler">
+        </div>
+        <div class="hero-text">
+            <h1>Maya Laidler</h1>
+            <p class="profile-tagline">CS &amp; Astronomy @ Vassar &nbsp;·&nbsp; <span id="typing-role"></span><span class="cursor">|</span></p>
+            <div class="profile-links">
+                <a href="https://github.com/mayalaidler" target="_blank" class="profile-badge">GitHub</a>
+                <a href="https://linkedin.com/in/maya-laidler" target="_blank" class="profile-badge">LinkedIn</a>
+                <a href="mailto:mlaidler@vassar.edu" class="profile-badge">Email</a>
+            </div>
+        </div>
     </div>
-    <h1>Maya Laidler</h1>
-    <p class="profile-tagline">
-        CS &amp; Astronomy @ Vassar &nbsp;·&nbsp;
-        <span id="typing-role"></span><span class="cursor">|</span>
-    </p>
-    <div class="profile-links">
-        <a href="https://github.com/mayalaidler" target="_blank" class="profile-badge">GitHub</a>
-        <a href="https://linkedin.com/in/maya-laidler" target="_blank" class="profile-badge">LinkedIn</a>
-        <a href="mailto:mlaidler@vassar.edu" class="profile-badge">Email</a>
+    <div class="stats-bar">
+        <div class="stat"><span class="stat-num" data-target="30000" data-suffix="+">0</span><span class="stat-label">Signals Analyzed</span></div>
+        <div class="stat"><span class="stat-num" data-target="7">0</span><span class="stat-label">Countries</span></div>
+        <div class="stat"><span class="stat-num" data-target="3">0</span><span class="stat-label">Study Abroad Programs</span></div>
+        <div class="stat"><span class="stat-num" data-target="6">0</span><span class="stat-label">Roles &amp; Internships</span></div>
     </div>
 </div>
-
-<!-- Unique element: animated star-field canvas -->
-<canvas id="starfield"></canvas>
+<svg class="wave" viewBox="0 0 1440 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,25 C360,50 1080,0 1440,25 L1440,50 L0,50 Z" fill="#f4f4f8"/>
+</svg>
 
 <!-- About -->
 <section class="section" id="about">
     <div class="section-inner">
-        <h2 class="section-title">About Me</h2>
+        <p class="section-title">Who I Am</p>
+        <h2 class="section-heading">About Me</h2>
         <div class="about-text">
-            <p>
-                I'm a senior at Vassar College double-majoring in Computer Science and Astronomy,
-                based in Queens, New York. My work sits at the intersection of machine learning and
-                astrophysics — I use neural networks and statistical models to understand the fundamental
-                physics of how galaxies form and evolve.
-            </p>
-            <p>
-                I've searched for alien technosignatures at the Berkeley SETI Research Center, built
-                assistive technology for visually impaired users, and designed cybersecurity dashboards
-                for a national laboratory. Whether it's a 2TB supercomputer simulation or a weekend
-                hackathon, I love tackling problems that feel just a little too hard.
-            </p>
+            <p>I'm a senior at Vassar College double-majoring in Computer Science and Astronomy, based in Queens, New York. My work sits at the intersection of machine learning and astrophysics — I use neural networks and statistical models to understand the fundamental physics of how galaxies form and evolve.</p>
+            <p>I've searched for alien technosignatures at the Berkeley SETI Research Center, built assistive technology for visually impaired users, and designed cybersecurity dashboards for a national laboratory. Whether it's a 2TB supercomputer simulation or a weekend hackathon, I love tackling problems that feel just a little too hard.</p>
         </div>
     </div>
 </section>
@@ -45,7 +43,8 @@
 <!-- Skills -->
 <section class="section section-alt" id="skills">
     <div class="section-inner">
-        <h2 class="section-title">Skills</h2>
+        <p class="section-title">What I Know</p>
+        <h2 class="section-heading">Skills</h2>
         <div class="skills-grid">
             {% for category, items in skills.items() %}
             <div class="skill-group">
@@ -61,48 +60,61 @@
     </div>
 </section>
 
-<!-- Work Experience -->
+<!-- Experience -->
 <section class="section" id="experience">
     <div class="section-inner">
-        <h2 class="section-title">Work Experience</h2>
-        {% for exp in experiences %}
-        <div class="card experience-card">
-            <div class="card-header">
-                <div>
-                    <h3 class="card-title">{{ exp.role }}</h3>
-                    <span class="card-subtitle">{{ exp.company }}</span>
+        <p class="section-title">Where I've Worked</p>
+        <h2 class="section-heading">Experience</h2>
+        <div class="timeline">
+            {% for exp in experiences %}
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">{{ exp.role }}</h3>
+                            <span class="card-subtitle">{{ exp.company }}</span>
+                        </div>
+                        <span class="card-date">{{ exp.start }} – {{ exp.end }}</span>
+                    </div>
+                    <p class="card-body">{{ exp.description }}</p>
                 </div>
-                <span class="card-date">{{ exp.start }} &ndash; {{ exp.end }}</span>
             </div>
-            <p class="card-body">{{ exp.description }}</p>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </section>
 
 <!-- Education -->
 <section class="section section-alt" id="education">
     <div class="section-inner">
-        <h2 class="section-title">Education</h2>
-        {% for edu in education %}
-        <div class="card education-card">
-            <div class="card-header">
-                <div>
-                    <h3 class="card-title">{{ edu.school }}</h3>
+        <p class="section-title">Where I've Studied</p>
+        <h2 class="section-heading">Education</h2>
+        <div class="edu-grid">
+            {% for edu in education %}
+            <div class="edu-card {% if loop.first %}edu-card--featured{% endif %}">
+                {% if loop.first %}
+                <img src="/static/img/vassar.jpg" alt="Vassar College" class="edu-photo">
+                {% endif %}
+                <div class="edu-body">
+                    <div class="edu-header">
+                        <h3 class="card-title">{{ edu.school }}</h3>
+                        <span class="card-date">{{ edu.start }} – {{ edu.end }}</span>
+                    </div>
                     <span class="card-subtitle">{{ edu.degree }}</span>
+                    <p class="card-body">{{ edu.description }}</p>
                 </div>
-                <span class="card-date">{{ edu.start }} &ndash; {{ edu.end }}</span>
             </div>
-            <p class="card-body">{{ edu.description }}</p>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </section>
 
 <!-- Travel Map -->
 <section class="section" id="travel">
     <div class="section-inner">
-        <h2 class="section-title">Places I've Been</h2>
+        <p class="section-title">Around the World</p>
+        <h2 class="section-heading">Places I've Been</h2>
         <div id="travel-map"></div>
         <ul class="location-list">
             {% for loc in visited_locations %}
@@ -111,72 +123,61 @@
         </ul>
     </div>
 </section>
+
+<!-- Hobbies preview -->
+<section class="section section-alt" id="hobbies-preview">
+    <div class="section-inner">
+        <p class="section-title">Outside the Lab</p>
+        <h2 class="section-heading">Hobbies</h2>
+        <div class="hobbies-grid">
+            {% for hobby in hobbies %}
+            <div class="hobby-card">
+                <div class="hobby-img-wrap">
+                    <img src="{{ hobby.image }}" alt="{{ hobby.name }}">
+                </div>
+                <div class="hobby-info">
+                    <h3>{{ hobby.name }}</h3>
+                    <p>{{ hobby.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}
 
 {% block scripts %}
 <script>
-/* ── Typing animation ── */
-const roles = [
-    "ML Researcher", "Astrophysicist", "SETI Explorer",
-    "Full-Stack Dev", "CS Educator", "Hackathon Winner"
-];
-let ri = 0, ci = 0, deleting = false;
-function type() {
-    const el = document.getElementById("typing-role");
-    const word = roles[ri];
-    if (!deleting) {
-        el.textContent = word.slice(0, ++ci);
-        if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
-    } else {
-        el.textContent = word.slice(0, --ci);
-        if (ci === 0) { deleting = false; ri = (ri + 1) % roles.length; }
-    }
-    setTimeout(type, deleting ? 60 : 100);
+const roles = ["ML Researcher","Astrophysicist","SETI Explorer","Full-Stack Dev","CS Educator","Hackathon Winner"];
+let ri=0,ci=0,deleting=false;
+function type(){
+    const el=document.getElementById("typing-role");
+    const word=roles[ri];
+    if(!deleting){el.textContent=word.slice(0,++ci);if(ci===word.length){deleting=true;setTimeout(type,1800);return;}}
+    else{el.textContent=word.slice(0,--ci);if(ci===0){deleting=false;ri=(ri+1)%roles.length;}}
+    setTimeout(type,deleting?55:95);
 }
 type();
 
-/* ── Star-field canvas ── */
-const canvas = document.getElementById("starfield");
-const ctx = canvas.getContext("2d");
-let stars = [];
-
-function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = 120;
-    stars = Array.from({length: 120}, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.4 + 0.3,
-        alpha: Math.random(),
-        speed: Math.random() * 0.004 + 0.001
-    }));
-}
-
-function drawStars() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    stars.forEach(s => {
-        s.alpha += s.speed * (Math.random() > 0.5 ? 1 : -1);
-        s.alpha = Math.max(0.05, Math.min(1, s.alpha));
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(99, 102, 241, ${s.alpha * 0.4})`;
-        ctx.fill();
+function animateCounters(){
+    document.querySelectorAll('.stat-num').forEach(el=>{
+        const target=parseFloat(el.dataset.target);
+        const suffix=el.dataset.suffix||'';
+        const decimals=parseInt(el.dataset.decimal||'0');
+        let step=0;const steps=60;const duration=1600;
+        const timer=setInterval(()=>{
+            step++;const ease=1-Math.pow(1-step/steps,3);const val=target*ease;
+            el.textContent=(decimals>0?val.toFixed(decimals):Math.floor(val).toLocaleString())+suffix;
+            if(step>=steps){clearInterval(timer);el.textContent=(decimals>0?target.toFixed(decimals):target.toLocaleString())+suffix;}
+        },duration/steps);
     });
-    requestAnimationFrame(drawStars);
 }
+new IntersectionObserver(entries=>{if(entries[0].isIntersecting){animateCounters();entries[0].target._obs?.disconnect();}},{threshold:0.3}).observe(document.querySelector('.stats-bar'));
 
-resize();
-window.addEventListener("resize", resize);
-drawStars();
-
-/* ── Travel map ── */
-const map = L.map('travel-map').setView([35, 10], 2);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap &copy; CARTO'
-}).addTo(map);
-const locations = {{ visited_locations | tojson }};
-locations.forEach(loc => {
-    L.marker([loc.lat, loc.lng]).addTo(map).bindPopup(`<strong>${loc.name}</strong>`);
+const map=L.map('travel-map').setView([35,10],2);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
+{{ visited_locations|tojson }}.forEach(loc=>{
+    L.circleMarker([loc.lat,loc.lng],{radius:9,fillColor:'#7c3aed',color:'#fff',weight:2,opacity:1,fillOpacity:0.9}).addTo(map).bindPopup(`<strong>${loc.name}</strong>`);
 });
 </script>
 {% endblock %}

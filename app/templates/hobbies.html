@@ -2,18 +2,22 @@
 
 {% block content %}
 <div class="page-hero">
-    <h1>Passions &amp; Interests</h1>
-    <p>What drives me beyond the classroom and the codebase</p>
+    <h1>My Hobbies</h1>
+    <p>Life outside the lab and the laptop</p>
 </div>
+<svg class="page-wave" viewBox="0 0 1440 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,25 C360,50 1080,0 1440,25 L1440,50 L0,50 Z" fill="#f4f4f8"/>
+</svg>
 
 <section class="section" id="hobbies">
     <div class="section-inner">
+        <p class="section-title">What I Love</p>
+        <h2 class="section-heading">Hobbies &amp; Interests</h2>
         <div class="hobbies-grid">
             {% for hobby in hobbies %}
             <div class="hobby-card">
                 <div class="hobby-img-wrap">
-                    <img src="/static/img/{{ hobby.image }}" alt="{{ hobby.name }}"
-                        onerror="this.src='/static/img/logo.jpg'">
+                    <img src="{{ hobby.image }}" alt="{{ hobby.name }}">
                 </div>
                 <div class="hobby-info">
                     <h3>{{ hobby.name }}</h3>
