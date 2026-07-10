@@ -1,98 +1,587 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="Maya Laidler — Portfolio">
+    <meta property="og:url" content="{{ url }}">
 
-{% block content %}
-<!-- Hero / Profile -->
-<div class="profile">
-    <div class="profile-picture">
-        <img src="/static/img/profile.jpg" alt="Profile photo" onerror="this.src='/static/img/logo.jpg'">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="/static/styles/main.css">
+    <link rel="stylesheet" href="/static/styles/desk.css">
+    <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon" />
+    <title>{{ title }}</title>
+</head>
+<body class="desk-body">
+
+    <nav class="desk-nav">
+        <span class="brand">ML</span>
+        {% for page in pages %}
+        <a href="{{ page.url }}">{{ page.name }}</a>
+        {% endfor %}
+    </nav>
+
+    <div class="desk-hint" id="hint">🖱️ Drag to explore &nbsp;·&nbsp; Scroll to zoom &nbsp;·&nbsp; Click items to pick them up</div>
+    <button class="view-reset" id="reset-view" title="Reset view">⌂</button>
+
+    <div id="viewport">
+        <div id="world">
+
+            <!-- ═══ Nameplate → Contact ═══ -->
+            <div class="desk-item" style="left:645px; top:105px; --r:0deg" data-modal="modal-contact">
+                <div class="nameplate">
+                    <h1>MAYA LAIDLER</h1>
+                    <p>CS &amp; Astronomy @ Vassar · <span id="typing-role"></span><span class="cursor">|</span></p>
+                </div>
+                <span class="item-label">Say hi 👋</span>
+            </div>
+
+            <!-- ═══ Photo frame → About ═══ -->
+            <div class="desk-item" style="left:255px; top:195px; --r:-7deg" data-modal="modal-about">
+                <div class="frame-item">
+                    <div class="matte">
+                        <img src="/static/img/AASImage1.jpg" draggable="false" alt="Maya Laidler">
+                    </div>
+                </div>
+                <span class="item-label">About Me</span>
+            </div>
+
+            <!-- ═══ Globe → Travel ═══ -->
+            <div class="desk-item" style="left:1450px; top:105px; --r:0deg" data-modal="modal-travel">
+                <svg width="240" height="260" viewBox="0 0 240 260" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="122" cy="240" rx="64" ry="14" fill="rgba(15,6,0,.35)"/>
+                    <ellipse cx="120" cy="230" rx="48" ry="12" fill="#6e5427"/>
+                    <ellipse cx="120" cy="226" rx="48" ry="12" fill="#8a6a33"/>
+                    <rect x="112" y="198" width="16" height="26" rx="6" fill="#a37f3d"/>
+                    <path d="M120 6 A100 100 0 0 1 120 206" fill="none" stroke="#c9a13f" stroke-width="10" stroke-linecap="round"/>
+                    <defs>
+                        <radialGradient id="ocean" cx=".38" cy=".32" r=".9">
+                            <stop offset="0" stop-color="#7dd3fc"/><stop offset=".55" stop-color="#38bdf8"/><stop offset="1" stop-color="#1d4ed8"/>
+                        </radialGradient>
+                    </defs>
+                    <circle cx="120" cy="106" r="88" fill="url(#ocean)"/>
+                    <g fill="#4ade80" opacity=".95">
+                        <path d="M74 62 q20 -16 42 -8 q10 4 6 16 q-4 12 -20 12 q-22 2 -30 -8 q-4 -6 2 -12z"/>
+                        <path d="M138 84 q26 -6 38 12 q8 14 -4 26 q-14 12 -30 4 q-14 -8 -12 -24 q2 -12 8 -18z"/>
+                        <path d="M76 122 q16 -2 22 10 q6 14 -4 26 q-12 12 -26 2 q-10 -8 -6 -22 q4 -12 14 -16z"/>
+                        <path d="M150 150 q14 0 16 12 q2 12 -10 16 q-14 4 -18 -8 q-2 -14 12 -20z"/>
+                    </g>
+                    <g fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1.5">
+                        <ellipse cx="120" cy="106" rx="88" ry="30"/>
+                        <ellipse cx="120" cy="106" rx="88" ry="62"/>
+                        <ellipse cx="120" cy="106" rx="34" ry="88"/>
+                        <ellipse cx="120" cy="106" rx="66" ry="88"/>
+                    </g>
+                    <circle cx="120" cy="106" r="88" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+                    <circle cx="88" cy="76" r="6" fill="#db2777" stroke="#fff" stroke-width="2"/>
+                    <circle cx="150" cy="98" r="6" fill="#db2777" stroke="#fff" stroke-width="2"/>
+                    <circle cx="104" cy="140" r="6" fill="#db2777" stroke="#fff" stroke-width="2"/>
+                    <circle cx="120" cy="8" r="7" fill="#c9a13f"/>
+                </svg>
+                <span class="item-label">Places I've Been</span>
+            </div>
+
+            <!-- ═══ Legal pad + pen → Experience ═══ -->
+            <div class="desk-item" style="left:690px; top:400px; --r:-2deg" data-modal="modal-experience">
+                <svg width="300" height="380" viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="18" y="20" width="262" height="346" rx="10" fill="rgba(15,6,0,.3)"/>
+                    <rect x="10" y="8" width="262" height="346" rx="10" fill="#f2df7e"/>
+                    <path d="M10 18 a10 10 0 0 1 10 -10 h242 a10 10 0 0 1 10 10 v30 h-262 z" fill="#dcc258"/>
+                    <g stroke="#d9c565" stroke-width="2">
+                        <line x1="26" y1="84"  x2="256" y2="84"/>
+                        <line x1="26" y1="112" x2="256" y2="112"/>
+                        <line x1="26" y1="140" x2="256" y2="140"/>
+                        <line x1="26" y1="168" x2="256" y2="168"/>
+                        <line x1="26" y1="196" x2="256" y2="196"/>
+                        <line x1="26" y1="224" x2="256" y2="224"/>
+                        <line x1="26" y1="252" x2="256" y2="252"/>
+                        <line x1="26" y1="280" x2="256" y2="280"/>
+                        <line x1="26" y1="308" x2="256" y2="308"/>
+                        <line x1="26" y1="336" x2="256" y2="336"/>
+                    </g>
+                    <g stroke="#6d28d9" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7">
+                        <path d="M30 78 q28 -10 62 -2 q20 5 44 -3"/>
+                        <path d="M30 106 q40 -8 90 -1 q30 4 70 -4"/>
+                        <path d="M30 134 q30 -7 58 0"/>
+                    </g>
+                    <g transform="rotate(34 150 240)">
+                        <defs>
+                            <linearGradient id="penbody" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0" stop-color="#8b5cf6"/><stop offset=".5" stop-color="#6d28d9"/><stop offset="1" stop-color="#4c1d95"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="38" y="229" width="200" height="23" rx="11" fill="url(#penbody)"/>
+                        <rect x="186" y="226" width="9" height="29" rx="3" fill="#fbbf24"/>
+                        <polygon points="238,233 266,240.5 238,248" fill="#fbbf24"/>
+                        <rect x="50" y="222" width="64" height="8" rx="4" fill="#c4b5fd"/>
+                    </g>
+                </svg>
+                <span class="item-label">Experience</span>
+            </div>
+
+            <!-- ═══ Stack of papers → Education ═══ -->
+            <div class="desk-item" style="left:270px; top:610px; --r:4deg" data-modal="modal-education">
+                <svg width="260" height="330" viewBox="0 0 260 330" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="22" y="26" width="212" height="286" rx="4" fill="rgba(15,6,0,.3)"/>
+                    <g transform="rotate(5 130 165)"><rect x="20" y="16" width="212" height="288" rx="3" fill="#e6dfd0"/></g>
+                    <g transform="rotate(-3 130 165)"><rect x="16" y="12" width="212" height="288" rx="3" fill="#efe9db"/></g>
+                    <rect x="12" y="8" width="216" height="292" rx="3" fill="#fbf8f0"/>
+                    <text x="120" y="52" text-anchor="middle" font-family="Georgia, serif" font-size="18" font-weight="bold" fill="#4c1d95" letter-spacing="1">VASSAR COLLEGE</text>
+                    <text x="120" y="73" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#9a917f" letter-spacing="3">OFFICIAL TRANSCRIPT</text>
+                    <line x1="34" y1="86" x2="206" y2="86" stroke="#d8d0bd" stroke-width="2"/>
+                    <g fill="#d8d0bd">
+                        <rect x="34" y="102" width="150" height="8" rx="4"/>
+                        <rect x="34" y="120" width="172" height="8" rx="4"/>
+                        <rect x="34" y="138" width="120" height="8" rx="4"/>
+                        <rect x="34" y="156" width="160" height="8" rx="4"/>
+                        <rect x="34" y="174" width="140" height="8" rx="4"/>
+                        <rect x="34" y="192" width="168" height="8" rx="4"/>
+                        <rect x="34" y="210" width="110" height="8" rx="4"/>
+                    </g>
+                    <rect x="34" y="236" width="70" height="8" rx="4" fill="#c9b2e8"/>
+                    <circle cx="182" cy="252" r="27" fill="#b91c1c"/>
+                    <circle cx="182" cy="252" r="19" fill="none" stroke="#f3b0b0" stroke-width="2.5"/>
+                    <text x="182" y="257" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="800" fill="#fde8e8">VC</text>
+                </svg>
+                <span class="item-label">Education</span>
+            </div>
+
+            <!-- ═══ Laptop → Skills ═══ -->
+            <div class="desk-item" style="left:1190px; top:420px; --r:3deg" data-modal="modal-skills">
+                <svg width="390" height="500" viewBox="0 0 390 500" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <pattern id="keys" width="35" height="31" patternUnits="userSpaceOnUse" patternTransform="translate(30 280)">
+                            <rect x="2.5" y="2.5" width="29" height="25" rx="5" fill="#565b68"/>
+                        </pattern>
+                        <linearGradient id="lapscreen" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#241f52"/><stop offset="1" stop-color="#191538"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="14" y="18" width="372" height="478" rx="18" fill="rgba(15,6,0,.32)"/>
+                    <rect x="6" y="4" width="378" height="248" rx="14" fill="#3a3d47"/>
+                    <rect x="20" y="17" width="350" height="222" rx="7" fill="url(#lapscreen)"/>
+                    <g>
+                        <rect x="36" y="36"  width="120" height="10" rx="5" fill="#c084fc"/>
+                        <rect x="36" y="58"  width="200" height="10" rx="5" fill="#7dd3fc" opacity=".85"/>
+                        <rect x="56" y="80"  width="150" height="10" rx="5" fill="#f472b6" opacity=".85"/>
+                        <rect x="56" y="102" width="230" height="10" rx="5" fill="#e5e7eb" opacity=".5"/>
+                        <rect x="56" y="124" width="180" height="10" rx="5" fill="#86efac" opacity=".8"/>
+                        <rect x="36" y="146" width="90"  height="10" rx="5" fill="#c084fc" opacity=".9"/>
+                        <rect x="36" y="168" width="250" height="10" rx="5" fill="#e5e7eb" opacity=".45"/>
+                        <rect x="56" y="190" width="140" height="10" rx="5" fill="#fbbf24" opacity=".85"/>
+                    </g>
+                    <rect x="6" y="250" width="378" height="10" rx="5" fill="#23252c"/>
+                    <rect x="6" y="258" width="378" height="238" rx="14" fill="#b8bcc7"/>
+                    <rect x="26" y="276" width="338" height="128" rx="8" fill="#9aa0ae"/>
+                    <rect x="30" y="280" width="330" height="120" fill="url(#keys)"/>
+                    <rect x="120" y="408" width="150" height="18" rx="6" fill="#565b68"/>
+                    <rect x="146" y="434" width="98" height="52" rx="8" fill="#c9cdd6"/>
+                    <circle cx="62" cy="456" r="17" fill="#db2777"/>
+                    <text x="62" y="461" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">ML</text>
+                </svg>
+                <span class="item-label">Skills</span>
+            </div>
+
+            <!-- ═══ Mug → Hobbies ═══ -->
+            <div class="desk-item" style="left:1000px; top:950px; --r:0deg" data-modal="modal-hobbies">
+                <svg width="240" height="200" viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="112" cy="108" rx="92" ry="84" fill="rgba(15,6,0,.32)"/>
+                    <circle cx="196" cy="96" r="30" fill="none" stroke="#5b21b6" stroke-width="17"/>
+                    <circle cx="104" cy="96" r="86" fill="#6d28d9"/>
+                    <circle cx="104" cy="96" r="76" fill="#7c3aed"/>
+                    <circle cx="104" cy="96" r="66" fill="#3b2313"/>
+                    <circle cx="104" cy="96" r="62" fill="#4e2e18"/>
+                    <path d="M104 62 c18 8 26 22 18 38 c-6 12 -22 16 -32 8 c-8 -6 -8 -18 0 -24 c6 -5 16 -3 18 4 c2 6 -4 12 -10 10"
+                          fill="none" stroke="#e2b98a" stroke-width="7" stroke-linecap="round" opacity=".9"/>
+                    <g class="steam" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="5" stroke-linecap="round">
+                        <path d="M78 40 q6 -12 -2 -22"/>
+                        <path d="M104 34 q7 -14 -1 -26"/>
+                        <path d="M130 40 q6 -12 -2 -22"/>
+                    </g>
+                </svg>
+                <span class="item-label">Hobbies</span>
+            </div>
+
+            <!-- ═══ Decorations (not clickable) ═══ -->
+            <div class="decor" style="left:530px; top:130px">
+                <svg width="140" height="140" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="72" cy="78" rx="56" ry="52" fill="rgba(15,6,0,.3)"/>
+                    <circle cx="70" cy="70" r="52" fill="#b0603a"/>
+                    <circle cx="70" cy="70" r="44" fill="#8a4526"/>
+                    <g transform="translate(70 70)">
+                        <g fill="#3d7a4a">
+                            <ellipse rx="13" ry="32" transform="rotate(0)   translate(0 -18)"/>
+                            <ellipse rx="13" ry="32" transform="rotate(45)  translate(0 -18)"/>
+                            <ellipse rx="13" ry="32" transform="rotate(90)  translate(0 -18)"/>
+                            <ellipse rx="13" ry="32" transform="rotate(135) translate(0 -18)"/>
+                            <ellipse rx="13" ry="32" transform="rotate(180) translate(0 -18)"/>
+                            <ellipse rx="13" ry="32" transform="rotate(225) translate(0 -18)"/>
+                            <ellipse rx="13" ry="32" transform="rotate(270) translate(0 -18)"/>
+                            <ellipse rx="13" ry="32" transform="rotate(315) translate(0 -18)"/>
+                        </g>
+                        <g fill="#62b378">
+                            <ellipse rx="10" ry="22" transform="rotate(22)  translate(0 -10)"/>
+                            <ellipse rx="10" ry="22" transform="rotate(67)  translate(0 -10)"/>
+                            <ellipse rx="10" ry="22" transform="rotate(112) translate(0 -10)"/>
+                            <ellipse rx="10" ry="22" transform="rotate(157) translate(0 -10)"/>
+                            <ellipse rx="10" ry="22" transform="rotate(202) translate(0 -10)"/>
+                            <ellipse rx="10" ry="22" transform="rotate(247) translate(0 -10)"/>
+                            <ellipse rx="10" ry="22" transform="rotate(292) translate(0 -10)"/>
+                            <ellipse rx="10" ry="22" transform="rotate(337) translate(0 -10)"/>
+                        </g>
+                        <circle r="12" fill="#7ccf8e"/>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="decor sticky sticky--yellow" style="left:1085px; top:200px; --r:-6deg">Ship the<br>portfolio 🚀</div>
+            <div class="decor sticky sticky--pink" style="left:1660px; top:430px; --r:5deg">Galaxies<br>don't study<br>themselves ✨</div>
+
+            <div class="decor polaroid" style="left:620px; top:940px; --r:7deg">
+                <svg width="130" height="100" viewBox="0 0 130 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="130" height="100" fill="#3f9e4d"/>
+                    <rect y="48" width="130" height="4" fill="rgba(255,255,255,.5)"/>
+                    <circle cx="65" cy="50" r="18" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="3"/>
+                    <circle cx="88" cy="38" r="11" fill="#fff"/>
+                    <path d="M84 34 l8 8 M92 34 l-8 8" stroke="#333" stroke-width="1.6"/>
+                </svg>
+                <span>weekend match ⚽</span>
+            </div>
+
+            <div class="decor" style="left:560px; top:730px; --r:24deg">
+                <svg width="46" height="90" viewBox="0 0 46 90" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 74 V22 a9 9 0 0 1 18 0 v44 a15 15 0 0 1 -30 0 V30"
+                          fill="none" stroke="#9aa3ad" stroke-width="5" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <div class="decor" style="left:1265px; top:1010px; --r:0deg; width:140px; height:140px; border-radius:50%; border:9px solid rgba(52,28,10,.22)"></div>
+        </div>
     </div>
-    <h1>Maya Laidler</h1>
-    <p class="profile-tagline">Software Engineer &amp; MLH Fellow</p>
-</div>
 
-<!-- About -->
-<section class="section" id="about">
-    <div class="section-inner">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-grid">
+    <!-- ═══════════ MODALS ═══════════ -->
+    <div class="dmodal-backdrop" id="backdrop"></div>
+
+    <div class="dmodal" id="modal-about">
+        <div class="dmodal-card" style="--accent:#7c3aed">
+            <button class="dmodal-close">×</button>
+            <div class="about-modal-head">
+                <img src="/static/img/AASImage1.jpg" alt="Maya Laidler">
+                <div>
+                    <p class="section-title">Who I Am</p>
+                    <h2 class="section-heading" style="margin-bottom:0">About Me</h2>
+                </div>
+            </div>
             <div class="about-text">
-                <p>
-                    Hi! I'm Maya, a software engineer and MLH Fellow passionate about building products that matter.
-                    I love working across the full stack — from crafting clean UIs to designing reliable back-end systems.
-                </p>
-                <p>
-                    When I'm not coding you'll find me hiking trails, experimenting in the kitchen, or hunting for the
-                    perfect shot with my camera.
-                </p>
+                <p>I'm a senior at Vassar College double-majoring in Computer Science and Astronomy, based in Queens, New York. My work sits at the intersection of machine learning and astrophysics — I use neural networks and statistical models to understand the fundamental physics of how galaxies form and evolve.</p>
+                <p>I've searched for alien technosignatures at the Berkeley SETI Research Center, built assistive technology for visually impaired users, and designed cybersecurity dashboards for a national laboratory. Whether it's a 2TB supercomputer simulation or a weekend hackathon, I love tackling problems that feel just a little too hard.</p>
             </div>
         </div>
     </div>
-</section>
 
-<!-- Work Experience -->
-<section class="section section-alt" id="experience">
-    <div class="section-inner">
-        <h2 class="section-title">Work Experience</h2>
-        {% for exp in experiences %}
-        <div class="card experience-card">
-            <div class="card-header">
-                <div>
-                    <h3 class="card-title">{{ exp.role }}</h3>
-                    <span class="card-subtitle">{{ exp.company }}</span>
+    <div class="dmodal" id="modal-experience">
+        <div class="dmodal-card" style="--accent:#6d28d9">
+            <button class="dmodal-close">×</button>
+            <p class="section-title">Where I've Worked</p>
+            <h2 class="section-heading">Experience</h2>
+            <div class="timeline">
+                {% for exp in experiences %}
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">{{ exp.role }}</h3>
+                                <span class="card-subtitle">{{ exp.company }}</span>
+                            </div>
+                            <span class="card-date">{{ exp.start }} – {{ exp.end }}</span>
+                        </div>
+                        <p class="card-body">{{ exp.description }}</p>
+                    </div>
                 </div>
-                <span class="card-date">{{ exp.start }} &ndash; {{ exp.end }}</span>
+                {% endfor %}
             </div>
-            <p class="card-body">{{ exp.description }}</p>
         </div>
-        {% endfor %}
     </div>
-</section>
 
-<!-- Education -->
-<section class="section" id="education">
-    <div class="section-inner">
-        <h2 class="section-title">Education</h2>
-        {% for edu in education %}
-        <div class="card education-card">
-            <div class="card-header">
-                <div>
-                    <h3 class="card-title">{{ edu.school }}</h3>
-                    <span class="card-subtitle">{{ edu.degree }}</span>
+    <div class="dmodal" id="modal-education">
+        <div class="dmodal-card" style="--accent:#b91c1c">
+            <button class="dmodal-close">×</button>
+            <p class="section-title">Where I've Studied</p>
+            <h2 class="section-heading">Education</h2>
+            <div class="edu-grid">
+                {% for edu in education %}
+                <div class="edu-card {% if loop.first %}edu-card--featured{% endif %}">
+                    {% if loop.first %}
+                    <img src="/static/img/vassar.jpg" alt="Vassar College" class="edu-photo" onerror="this.remove()">
+                    {% endif %}
+                    <div class="edu-body">
+                        <div class="edu-header">
+                            <h3 class="card-title">{{ edu.school }}</h3>
+                            <span class="card-date">{{ edu.start }} – {{ edu.end }}</span>
+                        </div>
+                        <span class="card-subtitle">{{ edu.degree }}</span>
+                        <p class="card-body">{{ edu.description }}</p>
+                    </div>
                 </div>
-                <span class="card-date">{{ edu.start }} &ndash; {{ edu.end }}</span>
+                {% endfor %}
             </div>
-            <p class="card-body">{{ edu.description }}</p>
         </div>
-        {% endfor %}
     </div>
-</section>
 
-<!-- Travel Map -->
-<section class="section section-alt" id="travel">
-    <div class="section-inner">
-        <h2 class="section-title">Places I've Visited</h2>
-        <div id="travel-map"></div>
-        <ul class="location-list">
-            {% for loc in visited_locations %}
-            <li>{{ loc.name }}</li>
-            {% endfor %}
-        </ul>
+    <div class="dmodal" id="modal-skills">
+        <div class="dmodal-card" style="--accent:#db2777">
+            <button class="dmodal-close">×</button>
+            <p class="section-title">What I Know</p>
+            <h2 class="section-heading">Skills</h2>
+            <div class="skills-grid">
+                {% for category, items in skills.items() %}
+                <div class="skill-group">
+                    <h4 class="skill-category">{{ category }}</h4>
+                    <div class="skill-tags">
+                        {% for skill in items %}
+                        <span class="skill-tag">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-</section>
-{% endblock %}
 
-{% block scripts %}
-<script>
-    const map = L.map('travel-map').setView([20, 0], 2);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+    <div class="dmodal" id="modal-travel">
+        <div class="dmodal-card" style="--accent:#1d4ed8">
+            <button class="dmodal-close">×</button>
+            <p class="section-title">Around the World</p>
+            <h2 class="section-heading">Places I've Been</h2>
+            <div id="travel-map"></div>
+            <ul class="location-list">
+                {% for loc in visited_locations %}
+                <li>{{ loc.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 
-    const locations = {{ visited_locations | tojson }};
-    locations.forEach(loc => {
-        L.marker([loc.lat, loc.lng])
-            .addTo(map)
-            .bindPopup(`<strong>${loc.name}</strong>`);
+    <div class="dmodal" id="modal-hobbies">
+        <div class="dmodal-card" style="--accent:#fbbf24">
+            <button class="dmodal-close">×</button>
+            <p class="section-title">Outside the Lab</p>
+            <h2 class="section-heading">Hobbies</h2>
+            <div class="hobbies-grid">
+                {% for hobby in hobbies %}
+                <div class="hobby-card">
+                    <div class="hobby-img-wrap">
+                        <img src="{{ hobby.image }}" alt="{{ hobby.name }}">
+                    </div>
+                    <div class="hobby-info">
+                        <h3>{{ hobby.name }}</h3>
+                        <p>{{ hobby.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <a class="hobbies-page-link" href="/hobbies">Open the full hobbies page →</a>
+        </div>
+    </div>
+
+    <div class="dmodal" id="modal-contact">
+        <div class="dmodal-card" style="--accent:#c9a13f">
+            <button class="dmodal-close">×</button>
+            <p class="section-title">Get in Touch</p>
+            <h2 class="section-heading">Let's Talk</h2>
+            <p class="card-body" style="font-size:15px">Whether it's galaxies, code, or a good soccer match — I'm always up for a conversation.</p>
+            <div class="contact-links">
+                <a class="contact-btn" href="https://github.com/mayalaidler" target="_blank">GitHub</a>
+                <a class="contact-btn" href="https://linkedin.com/in/maya-laidler" target="_blank">LinkedIn</a>
+                <a class="contact-btn" href="mailto:mlaidler@vassar.edu">mlaidler@vassar.edu</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+    /* ══ Camera: zoom + pan ══ */
+    const viewport = document.getElementById('viewport');
+    const world = document.getElementById('world');
+    const W = 1900, H = 1240;
+    let scale = 1, tx = 0, ty = 0, anim = null;
+
+    function apply() { world.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`; }
+    function fitScale() { return Math.min(viewport.clientWidth / W, viewport.clientHeight / H) * 0.98; }
+
+    function clampPan() {
+        const vw = viewport.clientWidth, vh = viewport.clientHeight;
+        const ww = W * scale, wh = H * scale, m = 170;
+        if (ww <= vw) { const c = (vw - ww) / 2; tx = Math.max(c - m, Math.min(c + m, tx)); }
+        else tx = Math.max(vw - ww - m, Math.min(m, tx));
+        if (wh <= vh) { const c = (vh - wh) / 2; ty = Math.max(c - m, Math.min(c + m, ty)); }
+        else ty = Math.max(vh - wh - m, Math.min(m, ty));
+    }
+
+    function tweenTo(s2, x2, y2, dur) {
+        if (anim) cancelAnimationFrame(anim);
+        if (!dur) { scale = s2; tx = x2; ty = y2; apply(); return; }
+        const s1 = scale, x1 = tx, y1 = ty, t0 = performance.now();
+        (function step(t) {
+            const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+            scale = s1 + (s2 - s1) * e; tx = x1 + (x2 - x1) * e; ty = y1 + (y2 - y1) * e;
+            apply();
+            if (p < 1) anim = requestAnimationFrame(step);
+        })(t0);
+    }
+
+    function resetView(animate) {
+        const fs = fitScale();
+        tweenTo(fs, (viewport.clientWidth - W * fs) / 2, (viewport.clientHeight - H * fs) / 2, animate ? 650 : 0);
+    }
+
+    /* intro: start close on the nameplate, pull back to reveal the desk */
+    (function intro() {
+        const fs = fitScale();
+        scale = fs * 1.9;
+        tx = viewport.clientWidth / 2 - 870 * scale;
+        ty = viewport.clientHeight / 2 - 210 * scale;
+        apply();
+        setTimeout(() => resetView(true), 500);
+    })();
+
+    viewport.addEventListener('wheel', e => {
+        e.preventDefault();
+        const r = viewport.getBoundingClientRect();
+        const mx = e.clientX - r.left, my = e.clientY - r.top;
+        const ns = Math.min(2.6, Math.max(fitScale() * 0.75, scale * (1 - e.deltaY * 0.0016)));
+        tx = mx - (mx - tx) * (ns / scale);
+        ty = my - (my - ty) * (ns / scale);
+        scale = ns; clampPan(); apply();
+    }, { passive: false });
+
+    let dragging = false, lx = 0, ly = 0, moved = 0;
+    viewport.addEventListener('mousedown', e => {
+        dragging = true; moved = 0; lx = e.clientX; ly = e.clientY;
+        viewport.classList.add('dragging');
     });
-</script>
-{% endblock %}
+    window.addEventListener('mousemove', e => {
+        if (!dragging) return;
+        const dx = e.clientX - lx, dy = e.clientY - ly;
+        moved += Math.abs(dx) + Math.abs(dy);
+        tx += dx; ty += dy; lx = e.clientX; ly = e.clientY;
+        clampPan(); apply();
+    });
+    window.addEventListener('mouseup', () => { dragging = false; viewport.classList.remove('dragging'); });
+
+    viewport.addEventListener('dblclick', e => {
+        const r = viewport.getBoundingClientRect();
+        const mx = e.clientX - r.left, my = e.clientY - r.top;
+        const ns = Math.min(2.6, scale * 1.5);
+        tweenTo(ns, mx - (mx - tx) * (ns / scale), my - (my - ty) * (ns / scale), 340);
+    });
+
+    /* touch: 1-finger pan, 2-finger pinch */
+    let tstate = null;
+    viewport.addEventListener('touchstart', e => {
+        if (e.touches.length === 1) { const t = e.touches[0]; tstate = { m: 'pan', x: t.clientX, y: t.clientY }; moved = 0; }
+        else if (e.touches.length === 2) {
+            const [a, b] = e.touches;
+            tstate = { m: 'pinch', d: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) };
+        }
+    }, { passive: true });
+    viewport.addEventListener('touchmove', e => {
+        e.preventDefault();
+        if (!tstate) return;
+        if (tstate.m === 'pan' && e.touches.length === 1) {
+            const t = e.touches[0];
+            const dx = t.clientX - tstate.x, dy = t.clientY - tstate.y;
+            moved += Math.abs(dx) + Math.abs(dy);
+            tx += dx; ty += dy; tstate.x = t.clientX; tstate.y = t.clientY;
+            clampPan(); apply();
+        } else if (tstate.m === 'pinch' && e.touches.length === 2) {
+            const [a, b] = e.touches;
+            const d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+            const r = viewport.getBoundingClientRect();
+            const mx = (a.clientX + b.clientX) / 2 - r.left, my = (a.clientY + b.clientY) / 2 - r.top;
+            const ns = Math.min(2.6, Math.max(fitScale() * 0.75, scale * d / tstate.d));
+            tx = mx - (mx - tx) * (ns / scale);
+            ty = my - (my - ty) * (ns / scale);
+            scale = ns; tstate.d = d; clampPan(); apply();
+        }
+    }, { passive: false });
+    viewport.addEventListener('touchend', () => { tstate = null; });
+
+    document.getElementById('reset-view').addEventListener('click', () => resetView(true));
+    window.addEventListener('resize', () => { clampPan(); apply(); });
+
+    /* ══ Items → pick up → modal ══ */
+    let openItem = null;
+
+    function openModal(id, item) {
+        const m = document.getElementById(id);
+        if (!m) return;
+        document.getElementById('backdrop').classList.add('open');
+        m.classList.add('open');
+        viewport.classList.add('dimmed');
+        openItem = item || null;
+        if (id === 'modal-travel') ensureMap();
+    }
+    function closeModal() {
+        document.querySelectorAll('.dmodal.open').forEach(m => m.classList.remove('open'));
+        document.getElementById('backdrop').classList.remove('open');
+        viewport.classList.remove('dimmed');
+        if (openItem) { openItem.classList.remove('picked'); openItem = null; }
+    }
+
+    document.querySelectorAll('.desk-item').forEach(it => {
+        it.addEventListener('click', e => {
+            if (moved > 8) return;
+            e.stopPropagation();
+            it.classList.add('picked');
+            setTimeout(() => openModal(it.dataset.modal, it), 270);
+        });
+    });
+    document.getElementById('backdrop').addEventListener('click', closeModal);
+    document.querySelectorAll('.dmodal').forEach(m => m.addEventListener('click', e => { if (e.target === m) closeModal(); }));
+    document.querySelectorAll('.dmodal-close').forEach(b => b.addEventListener('click', closeModal));
+    window.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    /* ══ Typing animation on the nameplate ══ */
+    const roles = ["ML Researcher", "Astrophysicist", "SETI Explorer", "Full-Stack Dev", "CS Educator", "Hackathon Winner"];
+    let ri = 0, ci = 0, deleting = false;
+    (function type() {
+        const el = document.getElementById("typing-role");
+        const word = roles[ri];
+        if (!deleting) {
+            el.textContent = word.slice(0, ++ci);
+            if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+        } else {
+            el.textContent = word.slice(0, --ci);
+            if (ci === 0) { deleting = false; ri = (ri + 1) % roles.length; }
+        }
+        setTimeout(type, deleting ? 55 : 95);
+    })();
+
+    /* ══ Lazy Leaflet map (globe modal) ══ */
+    let travelMap = null;
+    function ensureMap() {
+        setTimeout(() => {
+            if (!travelMap) {
+                travelMap = L.map('travel-map').setView([32, 5], 1.7);
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                    attribution: '&copy; OpenStreetMap &copy; CARTO'
+                }).addTo(travelMap);
+                {{ visited_locations | tojson }}.forEach(l => {
+                    L.circleMarker([l.lat, l.lng], {
+                        radius: 8, fillColor: '#7c3aed', color: '#fff', weight: 2, opacity: 1, fillOpacity: .9
+                    }).addTo(travelMap).bindPopup(`<strong>${l.name}</strong>`);
+                });
+            } else travelMap.invalidateSize();
+        }, 140);
+    }
+
+    /* hint fades after a few seconds */
+    setTimeout(() => document.getElementById('hint').classList.add('hide'), 6500);
+    </script>
+</body>
+</html>
