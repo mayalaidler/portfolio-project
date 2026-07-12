@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-hero">
+    <h1>Timeline</h1>
+    <p>Leave a message — it posts live to the feed below</p>
+</div>
+
+<section class="section">
+    <div class="section-inner" style="max-width:720px">
+
+        <!-- Post form -->
+        <form id="timeline-form" class="tl-form">
+            <div class="tl-row">
+                <input type="text" name="name" placeholder="Your name" required>
+                <input type="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <textarea name="content" rows="3" placeholder="Write something..." required></textarea>
+            <button type="submit">Post to timeline</button>
+        </form>
+
+        <!-- Feed -->
+        <div id="timeline-feed" class="tl-feed">
+            <p class="tl-empty">Loading posts…</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<style>
+    .tl-form {
+        background:#fff; border:1px solid #ebebf0; border-radius:16px;
+        padding:22px; margin-bottom:32px;
+        display:flex; flex-direction:column; gap:12px;
+        box-shadow:0 4px 20px rgba(124,58,237,.06);
+    }
+    .tl-row { display:flex; gap:12px; }
+    .tl-row input { flex:1; }
+    .tl-form input, .tl-form textarea {
+        font-family:"Inter",sans-serif; font-size:14px;
+        padding:11px 14px; border:1px solid #ddd6fe; border-radius:10px;
+        background:#faf9ff; color:#111; resize:vertical;
+    }
+    .tl-form input:focus, .tl-form textarea:focus {
+        outline:none; border-color:#7c3aed; background:#fff;
+    }
+    .tl-form button {
+        align-self:flex-start;
+        background:linear-gradient(135deg,#7c3aed,#db2777); color:#fff;
+        font-weight:700; font-size:14px; border:none; border-radius:10px;
+        padding:11px 26px; cursor:pointer; transition:transform .15s, box-shadow .15s;
+    }
+    .tl-form button:hover { transform:translateY(-1px); box-shadow:0 8px 18px rgba(124,58,237,.3); }
+    .tl-form button:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+
+    .tl-feed { display:flex; flex-direction:column; gap:16px; }
+    .tl-empty { color:#999; text-align:center; padding:20px; }
+
+    .tl-post {
+        background:#fff; border:1px solid #ebebf0; border-left:4px solid #7c3aed;
+        border-radius:12px; padding:18px 20px;
+        display:flex; gap:14px; align-items:flex-start;
+    }
+    .tl-avatar {
+        width:48px; height:48px; border-radius:50%; flex-shrink:0;
+        background:#f0ebff; object-fit:cover;
+    }
+    .tl-body { flex:1; min-width:0; }
+    .tl-head { display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+    .tl-name { font-weight:700; font-size:15px; color:#111; }
+    .tl-email { font-size:12px; color:#7c3aed; }
+    .tl-date { font-size:12px; color:#999; white-space:nowrap; }
+    .tl-content { font-size:14px; color:#444; line-height:1.6; white-space:pre-wrap; word-wrap:break-word; }
+</style>
+
+<script>
+const feed = document.getElementById('timeline-feed');
+const form = document.getElementById('timeline-form');
+
+// Gravatar URL from an email (SHA-256, with an identicon fallback so every
+// email always shows an avatar even without a Gravatar account).
+async function gravatar(email) {
+    const clean = email.trim().toLowerCase();
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(clean));
+    const hash = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+    return `https://www.gravatar.com/avatar/${hash}?d=identicon&s=96`;
+}
+
+function formatDate(str) {
+    const d = new Date(str);
+    return isNaN(d) ? str : d.toLocaleString();
+}
+
+async function renderPosts(posts) {
+    if (!posts.length) {
+        feed.innerHTML = '<p class="tl-empty">No posts yet — be the first!</p>';
+        return;
+    }
+    const html = await Promise.all(posts.map(async p => `
+        <div class="tl-post">
+            <img class="tl-avatar" src="${await gravatar(p.email)}" alt="${p.name}">
+            <div class="tl-body">
+                <div class="tl-head">
+                    <span><span class="tl-name">${p.name}</span> <span class="tl-email">${p.email}</span></span>
+                    <span class="tl-date">${formatDate(p.created_at)}</span>
+                </div>
+                <div class="tl-content">${p.content}</div>
+            </div>
+        </div>
+    `));
+    feed.innerHTML = html.join('');
+}
+
+async function loadPosts() {
+    const res = await fetch('/api/timeline_post');
+    const data = await res.json();
+    await renderPosts(data.timeline_posts);
+}
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();                       // override the default submit
+    const btn = form.querySelector('button');
+    btn.disabled = true;
+
+    await fetch('/api/timeline_post', {
+        method: 'POST',
+        body: new FormData(form),             // sends name/email/content as form data
+    });
+
+    form.reset();
+    btn.disabled = false;
+    await loadPosts();                        // refresh feed so the new post shows
+});
+
+loadPosts();
+</script>
+{% endblock %}

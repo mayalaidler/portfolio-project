@@ -235,3 +235,40 @@ body.desk-body {
     font-weight: 700; font-size: 14px; color: #7c3aed; text-decoration: none;
 }
 .hobbies-page-link:hover { text-decoration: underline; }
+
+/* ── Timeline inside the laptop modal ─────────────────────── */
+.tl-form {
+    background: #faf9ff; border: 1px solid #ebebf0; border-radius: 14px;
+    padding: 18px; margin-bottom: 24px;
+    display: flex; flex-direction: column; gap: 10px;
+}
+.tl-row { display: flex; gap: 10px; }
+.tl-row input { flex: 1; }
+.tl-form input, .tl-form textarea {
+    font-family: "Inter", sans-serif; font-size: 14px;
+    padding: 10px 13px; border: 1px solid #ddd6fe; border-radius: 9px;
+    background: #fff; color: #111; resize: vertical;
+}
+.tl-form input:focus, .tl-form textarea:focus { outline: none; border-color: #7c3aed; }
+.tl-form button {
+    align-self: flex-start;
+    background: linear-gradient(135deg, #7c3aed, #db2777); color: #fff;
+    font-weight: 700; font-size: 14px; border: none; border-radius: 9px;
+    padding: 10px 24px; cursor: pointer; transition: transform .15s, box-shadow .15s;
+}
+.tl-form button:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(124,58,237,.3); }
+.tl-form button:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+.tl-feed { display: flex; flex-direction: column; gap: 14px; }
+.tl-empty { color: #999; text-align: center; padding: 18px; }
+.tl-post {
+    background: #fff; border: 1px solid #ebebf0; border-left: 4px solid #7c3aed;
+    border-radius: 12px; padding: 16px 18px; display: flex; gap: 13px; align-items: flex-start;
+}
+.tl-avatar { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; background: #f0ebff; object-fit: cover; }
+.tl-body { flex: 1; min-width: 0; }
+.tl-head { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+.tl-name { font-weight: 700; font-size: 15px; color: #111; }
+.tl-email { font-size: 12px; color: #7c3aed; }
+.tl-date { font-size: 12px; color: #999; white-space: nowrap; }
+.tl-content { font-size: 14px; color: #444; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; }

@@ -149,8 +149,8 @@
                 <span class="item-label">Education</span>
             </div>
 
-            <!-- ═══ Laptop → Skills ═══ -->
-            <div class="desk-item" style="left:1190px; top:420px; --r:3deg" data-modal="modal-skills">
+            <!-- ═══ Laptop → Timeline ═══ -->
+            <div class="desk-item" style="left:1190px; top:420px; --r:3deg" data-modal="modal-timeline">
                 <svg width="390" height="500" viewBox="0 0 390 500" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <pattern id="keys" width="35" height="31" patternUnits="userSpaceOnUse" patternTransform="translate(30 280)">
@@ -182,7 +182,7 @@
                     <circle cx="62" cy="456" r="17" fill="#db2777"/>
                     <text x="62" y="461" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">ML</text>
                 </svg>
-                <span class="item-label">Skills</span>
+                <span class="item-label">Timeline</span>
             </div>
 
             <!-- ═══ Mug → Hobbies ═══ -->
@@ -237,7 +237,7 @@
                 </svg>
             </div>
 
-            <div class="decor sticky sticky--yellow" style="left:1085px; top:200px; --r:-6deg">Ship the<br>portfolio 🚀</div>
+            <div class="desk-item sticky sticky--yellow" style="left:1085px; top:200px; --r:-6deg" data-modal="modal-skills">My<br>skills 🛠️<span class="item-label">Skills</span></div>
             <div class="decor sticky sticky--pink" style="left:1660px; top:430px; --r:5deg">Galaxies<br>don't study<br>themselves ✨</div>
 
             <div class="decor polaroid" style="left:620px; top:940px; --r:7deg">
@@ -348,6 +348,27 @@
                     </div>
                 </div>
                 {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="dmodal" id="modal-timeline">
+        <div class="dmodal-card" style="--accent:#7c3aed">
+            <button class="dmodal-close">×</button>
+            <p class="section-title">Leave a Message</p>
+            <h2 class="section-heading">Timeline</h2>
+
+            <form id="timeline-form" class="tl-form">
+                <div class="tl-row">
+                    <input type="text" name="name" placeholder="Your name" required>
+                    <input type="email" name="email" placeholder="you@example.com" required>
+                </div>
+                <textarea name="content" rows="3" placeholder="Write something..." required></textarea>
+                <button type="submit">Post to timeline</button>
+            </form>
+
+            <div id="timeline-feed" class="tl-feed">
+                <p class="tl-empty">Loading posts…</p>
             </div>
         </div>
     </div>
@@ -525,6 +546,7 @@
         viewport.classList.add('dimmed');
         openItem = item || null;
         if (id === 'modal-travel') ensureMap();
+        if (id === 'modal-timeline') loadTimeline();
     }
     function closeModal() {
         document.querySelectorAll('.dmodal.open').forEach(m => m.classList.remove('open'));
@@ -581,6 +603,49 @@
     }
 
     /* hint fades after a few seconds */
+    /* ══ Timeline (laptop modal): live form + feed ══ */
+    async function gravatar(email) {
+        const clean = (email || '').trim().toLowerCase();
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(clean));
+        const hash = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+        return `https://www.gravatar.com/avatar/${hash}?d=identicon&s=96`;
+    }
+    function fmtDate(str) { const d = new Date(str); return isNaN(d) ? str : d.toLocaleString(); }
+
+    async function renderTimeline(posts) {
+        const feed = document.getElementById('timeline-feed');
+        if (!posts.length) { feed.innerHTML = '<p class="tl-empty">No posts yet — be the first!</p>'; return; }
+        const html = await Promise.all(posts.map(async p => `
+            <div class="tl-post">
+                <img class="tl-avatar" src="${await gravatar(p.email)}" alt="${p.name}">
+                <div class="tl-body">
+                    <div class="tl-head">
+                        <span><span class="tl-name">${p.name}</span> <span class="tl-email">${p.email}</span></span>
+                        <span class="tl-date">${fmtDate(p.created_at)}</span>
+                    </div>
+                    <div class="tl-content">${p.content}</div>
+                </div>
+            </div>`));
+        feed.innerHTML = html.join('');
+    }
+
+    async function loadTimeline() {
+        const res = await fetch('/api/timeline_post');
+        const data = await res.json();
+        await renderTimeline(data.timeline_posts);
+    }
+
+    document.getElementById('timeline-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+        btn.disabled = true;
+        await fetch('/api/timeline_post', { method: 'POST', body: new FormData(form) });
+        form.reset();
+        btn.disabled = false;
+        await loadTimeline();
+    });
+
     setTimeout(() => document.getElementById('hint').classList.add('hide'), 6500);
     </script>
 </body>
