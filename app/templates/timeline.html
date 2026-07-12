@@ -80,11 +80,8 @@ const form = document.getElementById('timeline-form');
 
 // Gravatar URL from an email (SHA-256, with an identicon fallback so every
 // email always shows an avatar even without a Gravatar account).
-async function gravatar(email) {
-    const clean = email.trim().toLowerCase();
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(clean));
-    const hash = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
-    return `https://www.gravatar.com/avatar/${hash}?d=identicon&s=96`;
+function gravatar(email) {
+    return gravatarUrl(email);   // defined in /static/js/gravatar.js (works over plain HTTP)
 }
 
 function formatDate(str) {

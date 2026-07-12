@@ -424,6 +424,7 @@
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/static/js/gravatar.js"></script>
     <script>
     /* ══ Camera: zoom + pan ══ */
     const viewport = document.getElementById('viewport');
@@ -604,11 +605,8 @@
 
     /* hint fades after a few seconds */
     /* ══ Timeline (laptop modal): live form + feed ══ */
-    async function gravatar(email) {
-        const clean = (email || '').trim().toLowerCase();
-        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(clean));
-        const hash = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
-        return `https://www.gravatar.com/avatar/${hash}?d=identicon&s=96`;
+    function gravatar(email) {
+        return gravatarUrl(email);   // defined in /static/js/gravatar.js (works over plain HTTP)
     }
     function fmtDate(str) { const d = new Date(str); return isNaN(d) ? str : d.toLocaleString(); }
 
