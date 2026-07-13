@@ -8,9 +8,6 @@ fi
 
 VENV=~/portfolio-project/python3-virtualenv
 
-# Kill all existing tmux sessions
-tmux kill-server 2>/dev/null || true
-
 # Navigate to project directory
 cd ~/portfolio-project
 
@@ -24,6 +21,5 @@ fi
 source "$VENV/bin/activate"
 python -m pip install -r requirements.txt
 
-# Start a new detached tmux session that runs the Flask server
-tmux new-session -d -s flask -c ~/portfolio-project \
-  "source $VENV/bin/activate && FLASK_APP=app flask run --host=0.0.0.0"
+# Restart the systemd service so it picks up the new code
+sudo systemctl restart myportfolio
