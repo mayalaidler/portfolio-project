@@ -300,6 +300,13 @@
                             <span class="card-date">{{ exp.start }} – {{ exp.end }}</span>
                         </div>
                         <p class="card-body">{{ exp.description }}</p>
+                        {% if exp.bullets %}
+                        <ul class="card-bullets">
+                            {% for bullet in exp.bullets %}
+                            <li>{{ bullet }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}
@@ -396,7 +403,8 @@
                 {% for hobby in hobbies %}
                 <div class="hobby-card">
                     <div class="hobby-img-wrap">
-                        <img src="{{ hobby.image }}" alt="{{ hobby.name }}">
+                        <img src="{{ hobby.image }}" alt="{{ hobby.name }}"
+                            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=700&q=80'">
                     </div>
                     <div class="hobby-info">
                         <h3>{{ hobby.name }}</h3>

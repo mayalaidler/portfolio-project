@@ -39,46 +39,76 @@ mydb.create_tables([TimelinePost])
 
 experiences = [
     {
-        "company": "Major League Hacking",
-        "role": "Software Engineering Fellow",
+        "company": "Meta · MLH Fellowship",
+        "role": "Production Engineering Fellow",
         "start": "Jun 2026",
         "end": "Present",
-        "description": "Building open-source projects and collaborating with engineers worldwide through the MLH Fellowship program.",
+        "description": "Selected for MLH's Production Engineering Fellowship hosted with Meta — building and operating reliable, production-grade software with an emphasis on deployment, testing, and system reliability.",
+        "bullets": [
+            "Built and shipped a full-stack Flask + MySQL application, deploying it to an Ubuntu Linux VPS and serving it as a systemd service so it restarts automatically on boot and survives crashes.",
+            "Designed a timeline REST API backed by a peewee ORM data model, adding request validation and a test-mode SQLite configuration so the test suite runs without a live database.",
+            "Wrote a Python unittest suite and a curl-based integration script covering create/read flows and malformed-input edge cases, catching regressions before each deploy.",
+            "Automated deployment with a bash script that syncs the latest main branch, reinstalls dependencies, and restarts the service — collapsing a multi-step manual deploy into a single command.",
+            "Practiced core production-engineering workflows: environment and secret management, service logs and monitoring, and Git-based code review with fellow engineers.",
+        ],
     },
     {
         "company": "Amentum",
         "role": "Plant Engineering Intern",
         "start": "Jun 2025",
         "end": "Aug 2025",
-        "description": "Designed Splunk dashboards monitoring 250 endpoints, deployed Cortex XDR across the network, and automated system installation scripts to streamline IT operations.",
+        "description": "Supported IT and security operations for a regulated national-laboratory environment.",
+        "bullets": [
+            "Designed and deployed Splunk dashboards monitoring 250+ endpoints for real-time system-health visibility.",
+            "Rolled out Cortex XDR endpoint protection across the network and automated agent installation with scripts, cutting manual setup time.",
+            "Documented processes and collaborated with the plant IT team under strict compliance requirements.",
+        ],
     },
     {
         "company": "Berkeley SETI Research Center",
         "role": "Research Intern",
         "start": "Jun 2024",
         "end": "Aug 2024",
-        "description": "Technosignature detection using radio astronomy — analyzed MeerKAT datasets, reduced 30,000+ candidate signals to 10 high-confidence detections, and presented findings at Oxford University.",
+        "description": "Searched for radio technosignatures — signs of extraterrestrial technology — in large radio-telescope datasets.",
+        "bullets": [
+            "Analyzed MeerKAT radio-telescope data to search for narrowband technosignatures across thousands of stars.",
+            "Built a filtering and candidate-reduction workflow that narrowed 30,000+ raw detections down to 10 high-confidence candidates.",
+            "Presented methods and findings to researchers at the University of Oxford.",
+        ],
     },
     {
         "company": "Vassar College CS Department",
         "role": "Computer Science Coach",
         "start": "Jan 2024",
         "end": "Present",
-        "description": "Teaching Assistant for Data Structures & Algorithms and Theory of Computation; tutored ~30 students weekly.",
+        "description": "Teaching assistant and tutor for core computer-science courses.",
+        "bullets": [
+            "Support Data Structures & Algorithms and Theory of Computation as a teaching assistant.",
+            "Tutor ~30 students weekly — explaining complex concepts, debugging student code, and running review sessions.",
+        ],
     },
     {
         "company": "Vassar College Physics & Astronomy",
         "role": "Senior Thesis Researcher",
         "start": "Oct 2023",
         "end": "Present",
-        "description": "Applying machine learning to 3D magnetohydrodynamic simulations of galaxy formation — trained Ridge regression, Random Forest, and PyTorch neural network models on 2TB datasets hosted on the Midway Supercomputer.",
+        "description": "Applying machine learning to astrophysical simulations to understand the physics of galaxy formation.",
+        "bullets": [
+            "Apply ML to 3D magnetohydrodynamic (MHD) simulations of the circumgalactic medium to model galaxy formation.",
+            "Trained and compared Ridge regression, Random Forest, and PyTorch neural-network models to predict silicon mass in simulated gas.",
+            "Managed 2TB datasets and ran training jobs on the Midway Supercomputer (HPC cluster).",
+        ],
     },
     {
         "company": "Vassar College",
         "role": "Arctic Delta Research Assistant",
         "start": "Jan 2026",
         "end": "Present",
-        "description": "Remote sensing data analysis for nutrient flux and retention in Arctic river deltas using Python-based satellite imagery processing pipelines.",
+        "description": "Remote-sensing research on environmental change in Arctic river deltas.",
+        "bullets": [
+            "Process satellite imagery in Python to study nutrient flux and retention across Arctic river deltas.",
+            "Build reusable remote-sensing pipelines to analyze large geospatial datasets.",
+        ],
     },
 ]
 
@@ -110,7 +140,7 @@ hobbies = [
     {
         "name": "Soccer",
         "description": "Playing and watching the beautiful game — always down for a kickaround.",
-        "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=700&q=80",
+        "image": "/static/img/soccer.jpg",
     },
     {
         "name": "Traveling",
@@ -122,10 +152,15 @@ hobbies = [
         "description": "Experimenting in the kitchen with breads, pastries, and recipes inspired by everywhere I've been.",
         "image": "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=700&q=80",
     },
+    {
+        "name": "My Dog",
+        "description": "Spending time with my favorite research assistant and hiking buddy.",
+        "image": "/static/img/dog.jpg",
+    },
 ]
 
 skills = {
-    "Languages": ["Python", "Java", "TypeScript", "SQL", "C", "OCaml", "PHP", "Assembly"],
+    "Languages": ["Python", "Java", "TypeScript", "Fortran", "SQL", "C", "OCaml", "PHP", "Assembly"],
     "ML / Data Science": ["PyTorch", "scikit-learn", "NumPy", "Pandas", "Matplotlib", "Jupyter"],
     "Web": ["Vue.js", "React", "Next.js", "Laravel", "HTML/CSS", "JavaScript"],
     "Tools": ["Linux", "HPC / Supercomputing", "Git", "MySQL", "Splunk", "Docker", "LaTeX"],
