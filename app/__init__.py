@@ -80,7 +80,7 @@ experiences = [
         "company": "Vassar College CS Department",
         "role": "Computer Science Coach",
         "start": "Jan 2024",
-        "end": "Present",
+        "end": "May 2026",
         "description": "Teaching assistant and tutor for core computer-science courses.",
         "bullets": [
             "Support Data Structures & Algorithms and Theory of Computation as a teaching assistant.",
@@ -103,7 +103,7 @@ experiences = [
         "company": "Vassar College",
         "role": "Arctic Delta Research Assistant",
         "start": "Jan 2026",
-        "end": "Present",
+        "end": "May 2026",
         "description": "Remote-sensing research on environmental change in Arctic river deltas.",
         "bullets": [
             "Process satellite imagery in Python to study nutrient flux and retention across Arctic river deltas.",
@@ -148,9 +148,9 @@ hobbies = [
         "image": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=700&q=80",
     },
     {
-        "name": "Baking",
-        "description": "Experimenting in the kitchen with breads, pastries, and recipes inspired by everywhere I've been.",
-        "image": "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=700&q=80",
+        "name": "Dancing",
+        "description": "Dancing whenever I get the chance — it's the best way to unwind after a long week of research.",
+        "image": "/static/img/dancing.jpg",
     },
     {
         "name": "My Dog",
