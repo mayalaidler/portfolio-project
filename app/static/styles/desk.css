@@ -19,7 +19,7 @@ body.desk-body {
 }
 .desk-nav .brand {
     font-weight: 900; font-size: 16px; margin-right: 6px;
-    background: linear-gradient(135deg, #c084fc, #f472b6);
+    background: linear-gradient(135deg, #d4a373, #c9a13f);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .desk-nav a {
@@ -195,7 +195,7 @@ body.desk-body {
     max-height: min(84vh, 940px);
     overflow: auto;
     border-radius: 18px;
-    border-top: 6px solid var(--accent, #7c3aed);
+    border-top: 6px solid var(--accent, #8b5e34);
     padding: 32px 38px 38px;
     position: relative;
     transform: translateY(28px) scale(.94);
@@ -218,28 +218,28 @@ body.desk-body {
 .about-modal-head { display: flex; align-items: center; gap: 18px; margin-bottom: 18px; }
 .about-modal-head img {
     width: 84px; height: 84px; border-radius: 50%; object-fit: cover;
-    border: 3px solid #7c3aed;
+    border: 3px solid #8b5e34;
 }
 
 .contact-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
 .contact-btn {
     padding: 13px 28px; border-radius: 14px;
     font-weight: 700; font-size: 14px; text-decoration: none;
-    background: linear-gradient(135deg, #7c3aed, #db2777); color: #fff;
-    box-shadow: 0 8px 18px rgba(124, 58, 237, .35);
+    background: linear-gradient(135deg, #8b5e34, #b8860b); color: #fff;
+    box-shadow: 0 8px 18px rgba(139,94,52, .35);
     transition: .2s;
 }
-.contact-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(124, 58, 237, .45); }
+.contact-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(139,94,52, .45); }
 
 .hobbies-page-link {
     display: inline-block; margin-top: 20px;
-    font-weight: 700; font-size: 14px; color: #7c3aed; text-decoration: none;
+    font-weight: 700; font-size: 14px; color: #8b5e34; text-decoration: none;
 }
 .hobbies-page-link:hover { text-decoration: underline; }
 
 /* ── Timeline inside the laptop modal ─────────────────────── */
 .tl-form {
-    background: #faf9ff; border: 1px solid #ebebf0; border-radius: 14px;
+    background: #faf6ef; border: 1px solid #ebebf0; border-radius: 14px;
     padding: 18px; margin-bottom: 24px;
     display: flex; flex-direction: column; gap: 10px;
 }
@@ -247,34 +247,34 @@ body.desk-body {
 .tl-row input { flex: 1; }
 .tl-form input, .tl-form textarea {
     font-family: "Inter", sans-serif; font-size: 14px;
-    padding: 10px 13px; border: 1px solid #ddd6fe; border-radius: 9px;
+    padding: 10px 13px; border: 1px solid #e3d5c0; border-radius: 9px;
     background: #fff; color: #111; resize: vertical;
 }
-.tl-form input:focus, .tl-form textarea:focus { outline: none; border-color: #7c3aed; }
+.tl-form input:focus, .tl-form textarea:focus { outline: none; border-color: #8b5e34; }
 .tl-form button {
     align-self: flex-start;
-    background: linear-gradient(135deg, #7c3aed, #db2777); color: #fff;
+    background: linear-gradient(135deg, #8b5e34, #b8860b); color: #fff;
     font-weight: 700; font-size: 14px; border: none; border-radius: 9px;
     padding: 10px 24px; cursor: pointer; transition: transform .15s, box-shadow .15s;
 }
-.tl-form button:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(124,58,237,.3); }
+.tl-form button:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(139,94,52,.3); }
 .tl-form button:disabled { opacity: .6; cursor: not-allowed; transform: none; }
 
 .tl-feed { display: flex; flex-direction: column; gap: 14px; }
 .tl-empty { color: #999; text-align: center; padding: 18px; }
 .tl-post {
-    background: #fff; border: 1px solid #ebebf0; border-left: 4px solid #7c3aed;
+    background: #fff; border: 1px solid #ebebf0; border-left: 4px solid #8b5e34;
     border-radius: 12px; padding: 16px 18px; display: flex; gap: 13px; align-items: flex-start;
 }
-.tl-avatar { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; background: #f0ebff; object-fit: cover; }
+.tl-avatar { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; background: #f5ece0; object-fit: cover; }
 .tl-body { flex: 1; min-width: 0; }
 .tl-head { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
 .tl-name { font-weight: 700; font-size: 15px; color: #111; }
-.tl-email { font-size: 12px; color: #7c3aed; }
+.tl-email { font-size: 12px; color: #8b5e34; }
 .tl-date { font-size: 12px; color: #999; white-space: nowrap; }
 .tl-content { font-size: 14px; color: #444; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; }
 
 /* ── Experience bullet points ─────────────────────────────── */
 .card-bullets { margin: 10px 0 0; padding-left: 20px; }
 .card-bullets li { font-size: 13px; color: #555; line-height: 1.65; margin-bottom: 6px; }
-.card-bullets li::marker { color: #7c3aed; }
+.card-bullets li::marker { color: #8b5e34; }

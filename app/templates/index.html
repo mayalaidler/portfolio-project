@@ -19,9 +19,6 @@
 
     <nav class="desk-nav">
         <span class="brand">ML</span>
-        {% for page in pages %}
-        <a href="{{ page.url }}">{{ page.name }}</a>
-        {% endfor %}
     </nav>
 
     <div class="desk-hint" id="hint">🖱️ Drag to explore &nbsp;·&nbsp; Scroll to zoom &nbsp;·&nbsp; Click items to pick them up</div>
@@ -179,7 +176,7 @@
                     <rect x="30" y="280" width="330" height="120" fill="url(#keys)"/>
                     <rect x="120" y="408" width="150" height="18" rx="6" fill="#565b68"/>
                     <rect x="146" y="434" width="98" height="52" rx="8" fill="#c9cdd6"/>
-                    <circle cx="62" cy="456" r="17" fill="#db2777"/>
+                    <circle cx="62" cy="456" r="17" fill="#b8860b"/>
                     <text x="62" y="461" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">ML</text>
                 </svg>
                 <span class="item-label">Timeline</span>
@@ -266,7 +263,7 @@
     <div class="dmodal-backdrop" id="backdrop"></div>
 
     <div class="dmodal" id="modal-about">
-        <div class="dmodal-card" style="--accent:#7c3aed">
+        <div class="dmodal-card" style="--accent:#8b5e34">
             <button class="dmodal-close">×</button>
             <div class="about-modal-head">
                 <img src="/static/img/AASImage1.jpg" alt="Maya Laidler">
@@ -283,7 +280,7 @@
     </div>
 
     <div class="dmodal" id="modal-experience">
-        <div class="dmodal-card" style="--accent:#6d28d9">
+        <div class="dmodal-card" style="--accent:#6f4518">
             <button class="dmodal-close">×</button>
             <p class="section-title">Where I've Worked</p>
             <h2 class="section-heading">Experience</h2>
@@ -315,7 +312,7 @@
     </div>
 
     <div class="dmodal" id="modal-education">
-        <div class="dmodal-card" style="--accent:#b91c1c">
+        <div class="dmodal-card" style="--accent:#a0522d">
             <button class="dmodal-close">×</button>
             <p class="section-title">Where I've Studied</p>
             <h2 class="section-heading">Education</h2>
@@ -340,7 +337,7 @@
     </div>
 
     <div class="dmodal" id="modal-skills">
-        <div class="dmodal-card" style="--accent:#db2777">
+        <div class="dmodal-card" style="--accent:#b8860b">
             <button class="dmodal-close">×</button>
             <p class="section-title">What I Know</p>
             <h2 class="section-heading">Skills</h2>
@@ -360,7 +357,7 @@
     </div>
 
     <div class="dmodal" id="modal-timeline">
-        <div class="dmodal-card" style="--accent:#7c3aed">
+        <div class="dmodal-card" style="--accent:#7f5539">
             <button class="dmodal-close">×</button>
             <p class="section-title">Leave a Message</p>
             <h2 class="section-heading">Timeline</h2>
@@ -381,7 +378,7 @@
     </div>
 
     <div class="dmodal" id="modal-travel">
-        <div class="dmodal-card" style="--accent:#1d4ed8">
+        <div class="dmodal-card" style="--accent:#9c6644">
             <button class="dmodal-close">×</button>
             <p class="section-title">Around the World</p>
             <h2 class="section-heading">Places I've Been</h2>
@@ -395,7 +392,7 @@
     </div>
 
     <div class="dmodal" id="modal-hobbies">
-        <div class="dmodal-card" style="--accent:#fbbf24">
+        <div class="dmodal-card" style="--accent:#c9a13f">
             <button class="dmodal-close">×</button>
             <p class="section-title">Outside the Lab</p>
             <h2 class="section-heading">Hobbies</h2>
@@ -604,7 +601,7 @@
                 }).addTo(travelMap);
                 {{ visited_locations | tojson }}.forEach(l => {
                     L.circleMarker([l.lat, l.lng], {
-                        radius: 8, fillColor: '#7c3aed', color: '#fff', weight: 2, opacity: 1, fillOpacity: .9
+                        radius: 8, fillColor: '#8b5e34', color: '#fff', weight: 2, opacity: 1, fillOpacity: .9
                     }).addTo(travelMap).bindPopup(`<strong>${l.name}</strong>`);
                 });
             } else travelMap.invalidateSize();
