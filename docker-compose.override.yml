@@ -1,4 +1,0 @@
-services:
-  myportfolio:
-    ports: !override
-      - "5001:5000"
